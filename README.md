@@ -1,5 +1,6 @@
 # azure-shell
-An integrated shell for working with the Azure CLI2
+
+An interactive Azure CLI 2.0 command line interface
 
 The project will be updated pretty soon. Stay tuned!
 
