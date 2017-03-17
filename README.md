@@ -2,7 +2,7 @@
 
 An interactive Azure CLI 2.0 command line interface
 
-![]((https://github.com/yokawasa/azure-shell/raw/master/img/azure-shell-console.gif)) 
+![](https://github.com/yokawasa/azure-shell/raw/master/img/azure-shell-console.gif)
 
 ## Supported Environments
 
