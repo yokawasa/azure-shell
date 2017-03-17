@@ -51,7 +51,7 @@ def main():
         sys.exit(1)
 
     print("azure-shell version:{}".format(__version__))
-    print("AzureCLI version:{}".format(azure_cli_version))
+    #print("AzureCLI version:{}".format(azure_cli_version))
 
     base_dir = args.basedir if args.basedir else _DEFAULT_AZURE_SHELL_BASE_DIR
     config_file = args.config if args.config else '{}/azureshell.conf'.format(base_dir)
