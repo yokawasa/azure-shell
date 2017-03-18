@@ -2,7 +2,10 @@
 import re
 import ast
 
-from setuptools import setup, find_packages
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from distutils.core import setup, find_packages
 
 requires = [
     'prompt-toolkit>=1.0.0,<1.1.0',
@@ -20,7 +23,7 @@ with open('azureshell/__init__.py', 'r') as f:
 setup(
     name='azure-shell',
     version=version,
-    description='Azure Shell',
+    description='An interactive Azure CLI 2.0 command line interface',
     long_description=open('README.md').read(),
     author='Yoichi Kawasaki',
     url='https://github.com/yokawasa/azure-shell',
@@ -34,8 +37,9 @@ setup(
         ]
     },
     license="Apache License 2.0",
-    classifiers=(
-        'Development Status :: 3 - Alpha',
+    platforms='any',
+    classifiers=[
+        'Environment :: Console',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'Natural Language :: English',
@@ -47,5 +51,6 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
-    ),
+    ],
+    keywords='azure azure-shell, shell, azure-cli',
 )
