@@ -9,6 +9,10 @@ An interactive Azure CLI 2.0 command line interface
 * Python versions: 2.7, 3.3, 3.4, 3.5, 3.5 and maybe more
 * OS: Mac, Ubuntu, CentOS, Bash-on-Windows, or any platform where azure-cli can be installed
 
+## prerequisites
+
+You need Azure CLI 2.0 installed as prerequisites for azure-shell. Please refer to [Install Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) and install it if not yet installed
+
 ## Installation
 
 The azure-shell requires python and pip to install. You can install the azure-shell using pip:
