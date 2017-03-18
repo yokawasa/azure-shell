@@ -44,8 +44,6 @@ class AzureShellCompleter(Completer):
         if stripped_cursor:
             word_before_cursor = stripped_cursor.split()[-1]
         for completion in completions:
-            # Go through the completions and add inline docs and
-            # mark which options are required.
             arg_tree = self._current.get('argument_tree', {})
             if completion.startswith('--') and completion in arg_tree:
                 meta = arg_tree[completion]
@@ -83,14 +81,14 @@ class AzureShellCompleter(Completer):
         if current_length == 1 and self._last_position > 1:
             self._reset()
         elif current_length < self._last_position:
-            # User hit backspace, and proccees backspace handling
+            # Hit backspace, and handling backspace
             return self._handle_backspace()
         elif not line:
             return []
         #elif current_length != self._last_position + 1:
         #    return self._complete_from_full_parse()
         
-        # Only update the _last_position after special cases above were checked 
+        # Only update the _last_position after the cases above were verified
         self._last_position = len(line)
 
         # Autocomplete with 'az' if line is a single space or 'a' 
@@ -110,8 +108,7 @@ class AzureShellCompleter(Completer):
         last_word = words[-1]
         logger.debug("_autocomplete last_word: {}".format(last_word))
         if last_word in self._current.get('argument_tree', {}):
-            # The last thing we completed was an argument, record
-            # this as self.last_arg
+            # The last thing we completed was an argument, record this as self.last_arg
             self._last_option = last_word
         if line[-1] == ' ':
             # this is the case like:
@@ -140,7 +137,6 @@ class AzureShellCompleter(Completer):
         return [cmd for cmd in sorted(self._current['commands']) if cmd.startswith(last_word)]
 
     def _reset(self):
-        # Resets all the state. Called after a user runs a command.
         self._current_name = self._root_name
         self._current = self._index[self._root_name]
         self._last_position = 0
@@ -148,7 +144,7 @@ class AzureShellCompleter(Completer):
         self.cmd_path = [self._current_name]
 
     def _handle_backspace(self):
-        # Reseting and starting from the beginning
+        # reseting and starting from the beginning
         self._reset()
         line = self._current_line
         for i in range(1, len(self._current_line)):
