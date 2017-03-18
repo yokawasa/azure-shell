@@ -6,7 +6,7 @@ An interactive Azure CLI 2.0 command line interface
 
 ## Supported Environments
 
-* Python versions: 2.7, 3.3, 3.4, 3.5, 3.5 and maybe more
+* Python versions: 2.7, 3.3, 3.4, 3.5, 3.5, 3.6 and maybe more
 * OS: Mac, Ubuntu, CentOS, Bash-on-Windows, or any platform where azure-cli can be installed
 
 ## prerequisites
