@@ -4,12 +4,18 @@ An interactive Azure CLI 2.0 command line interface
 
 ![](https://github.com/yokawasa/azure-shell/raw/master/img/azure-shell-console.gif)
 
+## Features
+
+* Auto-completion of Azure CLI group, subgroups, commands, and parameters
+* Syntax highlighting
+* Command history
+
 ## Supported Environments
 
 * Python versions: 2.7, 3.3, 3.4, 3.5, 3.5, 3.6 and maybe more
 * OS: Mac, Ubuntu, CentOS, Bash-on-Windows, or any platform where azure-cli can be installed
 
-## prerequisites
+## Prerequisites
 
 You need Azure CLI 2.0 installed as prerequisites for azure-shell. Please refer to [Install Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) and install it if not yet installed
 
@@ -27,15 +33,21 @@ If you've already have azure-shell installed and want to upgrade to the latest v
 pip install --upgrade azure-shell
 ```
 
-Once you've installed the azure-shell, you can run azure-shell now:
+## Usage
+
+Once you've installed the azure-shell, you can run azure-shell by simply typing azure-shell:
 
 ```
 azure-shell
 ```
 
-## Configuration
+You can exit the azure-shell by typing either exit or quit:
 
-You can basically run without making any configurations by default but you can give options to azure-shell to configure:
+```
+azure> exit
+```
+
+Basically you can run azure-shell without making any configurations but you can give options to azure-shell to change its default behabior:
 
 ```
 azure-shell --help
@@ -55,6 +67,19 @@ optional arguments:
                      index-<azure_cli_version>.json)
 ```
 
+## Azure Shell Index Generator
+
+You can generate an index for azure-shell using azure-shell-index-generator command. Please be noted that it will take time before all data generation works are done
+ 
+```
+azure-shell-index-generator --output ~/.azureshell/cli-index.json
+```
+
+Basically you don't need to generate the index by yourself as azure-shell automatically downloads an index from its repository and load it for commands and parameters completion in startup time. But you also can give azure-shell your index using --index option.
+
+```
+azure-shell --index ~/.azureshell/cli-index.json
+```
 
 ## Contributing
 
