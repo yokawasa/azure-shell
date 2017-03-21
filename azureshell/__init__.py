@@ -11,12 +11,11 @@ from .completer import AzureShellCompleter
 from .index import AzureShellIndex, AzureShellIndexException
 from .config import AzureShellConfig
 from .cache import AzureShellCache
-from .utils import get_cli_version, find_executable_path, _ERR
+from .utils import get_cli_version, find_executable_path, AS_ERR, AZURE_SHELL_MINIMUM_AZURE_CLI_VERSION
 from .logger import init_logger
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 _DEFAULT_AZURE_SHELL_BASE_DIR = '{}/.azureshell'.format(os.environ['HOME'])
-_MINIMUM_AZURE_CLI_VERSION = '2.0.0'
 
 def main():
 
@@ -36,18 +35,19 @@ def main():
 
     ## az executable command path check
     if not find_executable_path('az'):
-        _ERR("[ERROR] NO azure cli (az) executable command found!")
-        _ERR("Please install Azure CLI 2.0 and set its executable dir to PATH")
-        _ERR("See https://github.com/Azure/azure-cli")
+        AS_ERR("[ERROR] NO azure cli (az) executable command found!")
+        AS_ERR("Please install Azure CLI 2.0 and set its executable dir to PATH")
+        AS_ERR("See https://github.com/Azure/azure-cli")
         sys.exit(1)
     
     azure_cli_version = utils.get_cli_version()
     ## Check minimum azure-cli version
-    if azure_cli_version < _MINIMUM_AZURE_CLI_VERSION:
-        _ERR("[ERROR] Azure CLI 2.0 minimum version failure!")
-        _ERR("Minimum azure-cli version required: {} (Your version: {})".format(_MINIMUM_AZURE_CLI_VERSION,azure_cli_version))
-        _ERR("Please install the latest azure-cli and set its executable dir to PATH")
-        _ERR("See https://github.com/Azure/azure-cli")
+    if azure_cli_version < AZURE_SHELL_MINIMUM_AZURE_CLI_VERSION:
+        AS_ERR("[ERROR] Azure CLI 2.0 minimum version failure!")
+        AS_ERR("Minimum azure-cli version required: {} (Your version: {})".format(
+                    AZURE_SHELL_MINIMUM_AZURE_CLI_VERSION, azure_cli_version))
+        AS_ERR("Please install the latest azure-cli and set its executable dir to PATH")
+        AS_ERR("See https://github.com/Azure/azure-cli")
         sys.exit(1)
 
     print("azure-shell version:{}".format(__version__))
@@ -58,8 +58,8 @@ def main():
     config = None
     ## Check if config file exists
     if not os.path.exists(config_file):
-        _ERR("[WARNING] No config file found:{}".format(config_file))
-        _ERR("Creating an default config file :{}".format(config_file))
+        AS_ERR("[WARNING] No config file found:{}".format(config_file))
+        AS_ERR("Creating an default config file :{}".format(config_file))
         AzureShellConfig.makedefaultconfig(config_file)
     config = AzureShellConfig(config_file)
     init_logger('azureshell', config.log_file, config.log_level)
@@ -71,7 +71,7 @@ def main():
         index_file = args.index
         # Check if specified index file exists and exit if the file does not exist
         if not os.path.exists(index_file):
-            _ERR("[ERROR] index file doesn't exist: {}".format(index_file))
+            AS_ERR("[ERROR] index file doesn't exist: {}".format(index_file))
             sys.exit(1)
     else:
         # Check if default index file exists and download the file if not exist on local
@@ -91,8 +91,8 @@ def main():
     try:
         index_data = AzureShellIndex.load_index(index_file)
     except AzureShellIndexException as e:
-        _ERR("[ERROR] index file loading failure: {}".format(index_file))
-        _ERR(str(e))
+        AS_ERR("[ERROR] index file loading failure: {}".format(index_file))
+        AS_ERR(str(e))
         sys.exit(1)
 
     completer = AzureShellCompleter(index_data)

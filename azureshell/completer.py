@@ -112,19 +112,17 @@ class AzureShellCompleter(Completer):
             self._last_option = last_word
         if line[-1] == ' ':
             # this is the case like:
-            # (1)'az vm ' or (2)'az vm --debug '
-            # and 
-            # (1) current command is 'az vm', then proceed next command 
-            #     completions if the command has childres
-            # (2) line is 'az vm --debug ', and current command is 'az vm',
-            #     then process the current command completion
+            # 'az vm ' or 'az vm --debug '
+            # 1. 'az vm '
+            #    Proceed next command completions if the command has childres
+            # 2. 'az vm --debug ' ( current command is 'az vm' )
+            #    Process the current command completion
             if not last_word.startswith('-'):
                 next_command = self._current['command_tree'].get(last_word)
                 if next_command is not None:
                     self._current = next_command
                     self._current_name = last_word
                     self.cmd_path.append(self._current_name)
-
             return self._current['commands'][:]
 
         elif last_word.startswith('-'):
