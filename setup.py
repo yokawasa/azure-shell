@@ -33,7 +33,8 @@ setup(
     install_requires=requires,
     entry_points={
         'console_scripts': [
-            'azure-shell = azureshell:main'
+            'azure-shell = azureshell:main',
+            'azure-shell-index-generator = azureshell.index_generator:main',
         ]
     },
     license="Apache License 2.0",
