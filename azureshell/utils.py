@@ -7,9 +7,10 @@ import subprocess
 
 from .cache import AzureShellCache
 
-def _ERR(s):
-    sys.stderr.write("{}\n".format(s))
+AZURE_SHELL_MINIMUM_AZURE_CLI_VERSION = '2.0.0'
 
+def AS_ERR(s):
+    sys.stderr.write("{}\n".format(s))
 
 def find_executable_path(executable):
     path = os.environ['PATH']
@@ -22,7 +23,6 @@ def find_executable_path(executable):
             if os.path.isfile(f):
                 return f
     return ''
-
 
 def get_cli_version():
     v = AzureShellCache.Instance().get('azure_cli_version')
@@ -43,3 +43,38 @@ def get_cli_version():
         if not line and proc.poll() is not None:
             break
     return v
+
+
+def get_azurecli_modules_path():
+    ## Getting a path for python executable taht AzureCLI leverage
+    executable = find_executable_path('az')
+    python_path = None
+    f = open(executable)
+    l = f.readline().strip()
+    while l:
+        if not l.startswith('#') and l.find('python'):
+            cols = l.split()
+            if len(cols) > 1:
+                python_path = cols[0]
+                break
+        l = f.readline().strip()
+    f.close
+    if not python_path:
+        return None 
+    ## Getting python module paths that Azure CLI configures
+    azurecli_modules_path =None
+    cmd_string="{} <<EOF\nimport sys\nprint ' '.join(sys.path)\nEOF".format(python_path)
+    proc = subprocess.Popen(cmd_string, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    azureclicore= 'azure/cli/core'
+    while True:
+        l = proc.stdout.readline().strip()
+        if l:
+            paths = l.split()
+            for path in paths:
+                d = os.path.join(path, azureclicore)
+                if os.path.exists(d):
+                    azurecli_modules_path = path 
+                    break
+        if not l and proc.poll() is not None:
+            break
+    return azurecli_modules_path
