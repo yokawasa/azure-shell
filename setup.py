@@ -11,6 +11,7 @@ requires = [
     'prompt-toolkit>=1.0.0,<1.1.0',
     'configparser>=3.5.0',
     'Pygments>=2.1.3,<3.0.0',
+    'pyyaml',
 ]
 
 with open('azureshell/__init__.py', 'r') as f:
