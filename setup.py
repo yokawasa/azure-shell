@@ -7,6 +7,12 @@ try:
 except ImportError:
     from distutils.core import setup, find_packages
 
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except(IOError, ImportError):
+    long_description = open('README.md').read()
+
 requires = [
     'prompt-toolkit>=1.0.0,<1.1.0',
     'configparser>=3.5.0',
@@ -18,12 +24,6 @@ with open('azureshell/__init__.py', 'r') as fd:
     version = re.search(
         r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
         fd.read(), re.MULTILINE).group(1)
-
-try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-except(IOError, ImportError):
-    long_description = open('README.md').read()
 
 setup(
     description='An interactive Azure CLI 2.0 command line interface',
