@@ -14,20 +14,26 @@ requires = [
     'pyyaml',
 ]
 
-with open('azureshell/__init__.py', 'r') as f:
-    version = str(
-        ast.literal_eval(
-            re.search(
-                r'__version__\s+=\s+(.*)',
-                f.read()).group(1)))
+with open('azureshell/__init__.py', 'r') as fd:
+    version = re.search(
+        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+        fd.read(), re.MULTILINE).group(1)
+
+try:
+    import pypandoc
+    long_description = pypandoc.convert('README.md', 'rst')
+except(IOError, ImportError):
+    long_description = open('README.md').read()
 
 setup(
+    description='An interactive Azure CLI 2.0 command line interface',
+    long_description=long_description,
+    author='Yoichi Kawasaki',
+    author_email='yoichi.kawasaki@outlook.com',
     name='azure-shell',
     version=version,
-    description='An interactive Azure CLI 2.0 command line interface',
-    long_description=open('README.md').read(),
-    author='Yoichi Kawasaki',
     url='https://github.com/yokawasa/azure-shell',
+    download_url='https://pypi.python.org/pypi/azure-shell',
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     package_data={'azureshell': ['azureshell.conf']},

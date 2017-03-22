@@ -1,5 +1,5 @@
 ## 0.2.0
-* Added Index Generator (azure-shell-index-generator) executable
+* Added Index Generator executable (azure-shell-index-generator) 
 
 ## 0.1.0
 
