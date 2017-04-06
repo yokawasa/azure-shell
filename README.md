@@ -1,6 +1,8 @@
 # azure-shell 
 
-An interactive Azure CLI 2.0 command line interface
+An interactive Azure CLI 2.0 command line interface. 
+
+[Note] Microsoft official Azure CLI 2.0 shell can be found at [Azure/azure-cli-shell](https://github.com/Azure/azure-cli-shell)
 
 ![](https://github.com/yokawasa/azure-shell/raw/master/img/azure-shell-console.gif)
 
