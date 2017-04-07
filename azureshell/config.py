@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from ConfigParser import SafeConfigParser, NoOptionError
+from .compat import configparser
 
 _DEFAULT_AZURE_SHELL_CONFIG_HIGHLIGHTER_STYLE = 'vim'
 _DEFAULT_AZURE_SHELL_CONFIG_LOG_FILE = '~/azureshell.log'
@@ -11,7 +11,7 @@ class AzureShellConfig(object):
 
     def __init__(self, config_file=None):
         self._config_file = config_file
-        self._config_parser = SafeConfigParser()
+        self._config_parser = configparser.SafeConfigParser()
 
         if self._config_file:
             self._config_parser.read(config_file)
@@ -31,7 +31,7 @@ class AzureShellConfig(object):
 
         try:
             v = self._config_parser.get(section, key)
-        except NoOptionError as e:
+        except configparser.NoOptionError as e:
             v = default_val
         return v
 

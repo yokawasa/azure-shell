@@ -4,7 +4,7 @@ import os
 import sys
 import re
 import subprocess
-
+from . import compat
 from .cache import AzureShellCache
 
 AZURE_SHELL_MINIMUM_AZURE_CLI_VERSION = '2.0.0'
@@ -32,7 +32,7 @@ def get_cli_version():
     proc = subprocess.Popen(cmd_string,shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     while True:
         line = proc.stdout.readline()
-        l = line.strip()  
+        l = line.strip().decode('utf-8') 
         if l.startswith('azure-cli'):
             r = re.compile("([a-z-]*) \((.*)\)")
             o = r.findall(l)

@@ -3,8 +3,8 @@
 import os
 import json
 import logging
-import urllib2
 from . import utils
+from .compat import urllib2
 
 logger = logging.getLogger('azureshell.index')
 
@@ -104,12 +104,12 @@ class AzureShellIndex(object):
 def _parse_command(name, command_obj,completions):
     if not command_obj:
         return
-    if command_obj.has_key('arguments'):
+    if 'arguments' in command_obj:
         args = command_obj['arguments']
         for arg in args:
             options = arg.split()
             completions['args'].update(options)
-    if command_obj.has_key('commands') and command_obj.has_key('command_tree'):
+    if 'commands' in command_obj and 'command_tree' in command_obj:
         subcommand_names = command_obj['commands']
         completions['commands'].extend(subcommand_names)
         cmd_tree = command_obj['command_tree']
