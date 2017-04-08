@@ -79,8 +79,9 @@ class AzureShellIndex(object):
         if not index_version in versions:
             ## get my nearest available version if not versions contains index_version
             for i in versions:
-                if index_version > i:
-                    my_nearest_version = i
+                i_s = i.decode('utf-8')
+                if index_version > i_s:
+                    my_nearest_version = i_s
                     break
         return my_nearest_version
     
