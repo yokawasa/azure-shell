@@ -71,7 +71,7 @@ class AzureShellIndex(object):
             _AZURE_SHELL_REMOTE_URL_BASE, _AZURE_SHELL_AVAILABLE_INDEX_FILE)
         logger.debug("Reading...:{}".format(remote_url)) 
         f = urllib2.urlopen(remote_url)
-        data = f.read()
+        data = f.read().decode('utf-8')
         versions=data.splitlines()
         versions.sort(reverse=True)
         ## check if versions contains myversion
@@ -79,9 +79,8 @@ class AzureShellIndex(object):
         if not index_version in versions:
             ## get my nearest available version if not versions contains index_version
             for i in versions:
-                i_s = i.decode('utf-8')
-                if index_version > i_s:
-                    my_nearest_version = i_s
+                if index_version > i:
+                    my_nearest_version = i
                     break
         return my_nearest_version
     

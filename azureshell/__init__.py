@@ -15,7 +15,7 @@ from .cache import AzureShellCache
 from .utils import get_cli_version, find_executable_path, AS_ERR, AZURE_SHELL_MINIMUM_AZURE_CLI_VERSION
 from .logger import init_logger
 
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 _DEFAULT_AZURE_SHELL_BASE_DIR = '{}/.azureshell'.format(os.environ['HOME'])
 
 def main():
