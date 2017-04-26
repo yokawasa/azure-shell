@@ -325,7 +325,15 @@ def main():
                 sys.path.append(azurecli_modules_path)
         module_import_trial_count = module_import_trial_count + 1
 
-    cmd_table = APPLICATION.configuration.get_command_table()
+    ## Get command table via acure.cli.core
+    azure_cli_version = get_cli_version()
+    cmd_table = {}
+    if azure_cli_version < '2.0.3':  # External I/F has been changed since azure-cli-2.0.3
+        cmd_table = APPLICATION.configuration.get_command_table()
+    else:
+        config = Configuration()
+        cmd_table = config.get_command_table()
+
     groups_map = {}
     cmds_map = {}
     groups_map = get_groups(cmd_table)
