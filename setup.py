@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import re
+import os
 import ast
 
 try:
@@ -7,18 +8,16 @@ try:
 except ImportError:
     from distutils.core import setup, find_packages
 
-try:
-    import pypandoc
-    long_description = pypandoc.convert('README.md', 'rst')
-except(IOError, ImportError):
-    long_description = open('README.md').read()
-
 requires = [
     'prompt-toolkit>=1.0.0,<1.1.0',
     'configparser>=3.5.0',
     'Pygments>=2.1.3,<3.0.0',
     'pyyaml',
 ]
+
+long_description = 'An interactive Azure CLI 2.0 command line interface'
+if os.path.exists('README.txt'):
+    long_description = open('README.txt', encoding='utf-8').read()
 
 with open('azureshell/__init__.py', 'r') as fd:
     version = re.search(

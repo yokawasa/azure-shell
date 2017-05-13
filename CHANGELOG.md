@@ -1,3 +1,6 @@
+## 0.2.5
+* add register.py and separate 'READM.md to rst conversion' logic from setup.py
+
 ## 0.2.4
 * fixup bug in index_geenrator.py- [Issue #2](https://github.com/yokawasa/azure-shell/issues/2)
 
