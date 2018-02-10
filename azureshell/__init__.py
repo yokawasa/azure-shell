@@ -41,7 +41,7 @@ def main():
         AS_ERR("See https://github.com/Azure/azure-cli")
         sys.exit(1)
     
-    azure_cli_version = utils.get_cli_version()
+    azure_cli_version = str(utils.get_cli_version())
     ## Check minimum azure-cli version
     if azure_cli_version < AZURE_SHELL_MINIMUM_AZURE_CLI_VERSION:
         AS_ERR("[ERROR] Azure CLI 2.0 minimum version failure!")
